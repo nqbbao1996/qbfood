@@ -71,50 +71,50 @@ function Contents(props) {
     getFood();
   }, []);
 
-  const acceptAddMusic = async () => {
-    try {
-      const result = await axios({
-        url: `https://fake-db-hazel.vercel.app/comments`,
-        method: "post",
-        data: dataPost,
-      });
-      if (result.status === 200) {
-        alert("Thêm logo thành công");
-      }
-    } catch (error) {
-      alert("Thêm logo thất bại");
-      console.log(error);
-    }
-  };
-  const acceptDelMusic = async () => {
-    try {
-      const result = await axios({
-        url: `https://fake-db-hazel.vercel.app/comments/t5eDzi4`,
-        method: "delete",
-      });
-      if (result.status === 200) {
-        alert("Thêm logo thành công");
-      }
-    } catch (error) {
-      alert("Thêm logo thất bại");
-      console.log(error);
-    }
-  };
-  const acceptFixMusic = async () => {
-    try {
-      const result = await axios({
-        url: `http://localhost:3004/comments/MIKWScM`,
-        method: "patch",
-        data: dataPatch,
-      });
-      if (result.status === 200) {
-        alert("Thêm logo thành công");
-      }
-    } catch (error) {
-      alert("Thêm logo thất bại");
-      console.log(error);
-    }
-  };
+  // const acceptAddMusic = async () => {
+  //   try {
+  //     const result = await axios({
+  //       url: `https://fake-db-hazel.vercel.app/comments`,
+  //       method: "post",
+  //       data: dataPost,
+  //     });
+  //     if (result.status === 200) {
+  //       alert("Thêm logo thành công");
+  //     }
+  //   } catch (error) {
+  //     alert("Thêm logo thất bại");
+  //     console.log(error);
+  //   }
+  // };
+  // const acceptDelMusic = async () => {
+  //   try {
+  //     const result = await axios({
+  //       url: `https://fake-db-hazel.vercel.app/comments/t5eDzi4`,
+  //       method: "delete",
+  //     });
+  //     if (result.status === 200) {
+  //       alert("Thêm logo thành công");
+  //     }
+  //   } catch (error) {
+  //     alert("Thêm logo thất bại");
+  //     console.log(error);
+  //   }
+  // };
+  // const acceptFixMusic = async () => {
+  //   try {
+  //     const result = await axios({
+  //       url: `http://localhost:3004/comments/MIKWScM`,
+  //       method: "patch",
+  //       data: dataPatch,
+  //     });
+  //     if (result.status === 200) {
+  //       alert("Thêm logo thành công");
+  //     }
+  //   } catch (error) {
+  //     alert("Thêm logo thất bại");
+  //     console.log(error);
+  //   }
+  // };
   const [scrollDimensions] = useScroll();
 
   return (
