@@ -26,9 +26,9 @@ function Intro(props) {
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d39557.57633964328!2d106.6643072!3d10.810021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529111aa89f9d%3A0xd8f09cc0aa1b27f3!2zQ-G6o25nIGjDoG5nIGtow7RuZyBRdeG7kWMgdOG6vyBUw6JuIFPGoW4gTmjhuqV0!5e1!3m2!1svi!2s!4v1675670724716!5m2!1svi!2s"
             width="300"
             height="300"
-            allowfullscreen=""
+            allowFullScreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
         <a
