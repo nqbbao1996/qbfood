@@ -4,8 +4,8 @@ import styled from "styled-components";
 function Footer(props) {
   return (
     <FooterContainer>
-      <h4>Copyright &copy; Nghia Nguyen</h4>
-      <p>khanhnghia.cv@gmail.com</p>
+      <h4>Copyright &copy; Quoc Bao</h4>
+      <p>blabla@gmail.com</p>
     </FooterContainer>
   );
 }
