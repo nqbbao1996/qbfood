@@ -237,6 +237,7 @@ const MoviesSlider = styled.div`
   overflow-x: auto;
   overflow: hidden;
   padding-top: 28px;
+  padding-bottom: 20px;
 
   scroll-behavior: smooth;
   &:hover .movieItem {
@@ -280,6 +281,7 @@ const MoviesSlider = styled.div`
       font-size: 14px;
     }
     .addbtn {
+      color: greenyellow;
       z-index: 100;
       position: absolute;
       right: 10px;

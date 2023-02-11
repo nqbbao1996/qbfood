@@ -1,0 +1,160 @@
+import { logDOM } from "@testing-library/react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const Container = styled.div`
+  .sidebar {
+    position: fixed;
+    height: 84vh;
+    left: 0;
+
+    padding-top: 20px px;
+    width: 250px;
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.85) 40%,
+      rgba(0, 0, 0, 0.99) 100%,
+      transparent
+    );
+    transition: transform 0.3s ease-in-out;
+    @media (max-width: 768px) {
+      transform: translateX(-100%);
+      &:hover {
+        transform: translateX(0) !important;
+        height: 340px;
+      }
+    }
+    @media (max-width: 1024px) {
+      width: 200px;
+    }
+  }
+
+  .hamburger-menu-icon {
+    margin: 8vh 0;
+    padding-top: 20px px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    display: none;
+    &:hover + .sidebar {
+      transform: translateX(0);
+      height: 340px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hamburger-menu-icon {
+      display: block;
+    }
+  }
+`;
+
+const Field = styled.div`
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+  color: var(--color-white);
+  &:hover {
+    background: linear-gradient(
+      270deg,
+      rgba(68, 68, 68, 0.85) 40%,
+      rgba(51, 51, 51, 1) 100%,
+      transparent
+    );
+  }
+`;
+
+const ChildFields = styled.div`
+  background: linear-gradient(
+    270deg,
+    rgba(68, 68, 68, 0.85) 40%,
+    rgba(51, 51, 51, 1) 100%,
+    transparent
+  );
+  color: #fff;
+
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+
+  div {
+    padding: 10px 20px;
+  }
+  .active {
+    background: linear-gradient(
+      270deg,
+      rgba(51, 51, 51, 0.85) 40%,
+      rgba(85, 85, 85, 1) 100%,
+      transparent
+    );
+  }
+
+  &.open {
+    max-height: 180px;
+  }
+`;
+
+function Sidebar() {
+  const [open, setOpen] = React.useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [size, setSize] = useState(false);
+  const handleClick = () => {
+    setShowSidebar(!showSidebar);
+  };
+  const [selectedChild, setSelectedChild] = useState(null);
+  const handleChildClick = (child) => {
+    setSelectedChild(child);
+  };
+
+  return (
+    <Container>
+      <div className="hamburger-menu-icon" onClick={handleClick}>
+        <i className="fas fa-bars"> alo</i>
+      </div>
+      <div className={`sidebar ${showSidebar ? "show" : "hide"}`}>
+        <Link to="/admin">
+          <Field>Đơn Đặt Bàn</Field>
+        </Link>
+        <Field onClick={() => setOpen(!open)}>Quản Lý Thực Đơn</Field>
+        <ChildFields className={open ? "open" : ""}>
+          <Link to="/admin/hots">
+            <div
+              onClick={() => handleChildClick("Child 1")}
+              className={selectedChild === "Child 1" ? "active" : ""}
+            >
+              Đặc sản
+            </div>
+          </Link>
+          <Link to="/admin/fasts">
+            <div
+              onClick={() => handleChildClick("Child 2")}
+              className={selectedChild === "Child 2" ? "active" : ""}
+            >
+              Món ăn nhẹ
+            </div>
+          </Link>
+          <Link to="/admin/mains">
+            <div
+              onClick={() => handleChildClick("Child 3")}
+              className={selectedChild === "Child 3" ? "active" : ""}
+            >
+              Món chính
+            </div>
+          </Link>
+          <Link to="/admin/drinks">
+            <div
+              onClick={() => handleChildClick("Child 4")}
+              className={selectedChild === "Child 4" ? "active" : ""}
+            >
+              Nước
+            </div>
+          </Link>
+        </ChildFields>
+      </div>
+    </Container>
+  );
+}
+
+export default Sidebar;

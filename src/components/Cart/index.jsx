@@ -41,6 +41,9 @@ function Cart() {
     }, 200);
   }, [totalItems]);
 
+  const handelSumit = () => {
+    console.log(items);
+  };
   return (
     <Header>
       <div
@@ -111,7 +114,7 @@ function Cart() {
 
           <div className="confirm-purchase">
             <div className="total">Tổng cộng: {formatPrice(cartTotal)}</div>
-            <button className="confirm-purchase-button">
+            <button className="confirm-purchase-button" onClick={handelSumit}>
               Xác nhận đặt bàn
             </button>
           </div>
@@ -137,7 +140,7 @@ const Header = styled.header`
 
   color: var(--color-white);
   background: linear-gradient(
-    180deg,
+    0deg,
     rgba(67, 67, 67) 20%,
     rgba(17, 17, 17) 100%
   );

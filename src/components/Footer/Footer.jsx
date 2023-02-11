@@ -15,13 +15,14 @@ export default React.memo(Footer);
 const FooterContainer = styled.div`
   width: 100%;
   height: 8vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: var(--color-white);
   background: linear-gradient(
-    0deg,
+    180deg,
     rgba(0, 0, 0, 0.9) 30%,
     rgba(0, 0, 0, 0.99) 100%,
     transparent

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function FormLog({ isShow, onClose }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,9 +21,11 @@ function FormLog({ isShow, onClose }) {
       setErrorMessage("Bạn chưa nhập mật khẩu");
     } else if (password.length < 4) {
       setErrorMessage("Mật khẩu có ít nhất 4 kí tự");
+    } else if (username === "1111" && password === "1111") {
+      navigate("/admin");
+      onClose();
     } else {
-      // Perform API call or other logic here
-      setErrorMessage("");
+      alert("Thất bại");
     }
   };
 
@@ -54,6 +59,7 @@ function FormLog({ isShow, onClose }) {
             <h2>Sign In</h2>
             <div className="inputBox">
               <input
+                required
                 type="text"
                 id="username"
                 value={username}
@@ -67,6 +73,7 @@ function FormLog({ isShow, onClose }) {
             </div>
             <div className="inputBox">
               <input
+                required
                 type="password"
                 id="password"
                 value={password}
@@ -83,15 +90,16 @@ function FormLog({ isShow, onClose }) {
               <a href="#">Forgot Password?</a>
               <a href="#">Sign Up</a>
             </div>
-            <div className="submit">
-              <button
+            <div className="sub-button">
+              <p
+                type="text"
                 onClick={() => {
                   onClose();
                 }}
                 className="cancel"
               >
                 Cancel
-              </button>
+              </p>
               <input type="submit" value="Login" className="c" />
             </div>
           </form>
@@ -262,16 +270,18 @@ const Formbox = styled.div`
       color: #8f8f8f;
     }
   }
-  .submit {
+  .sub-button {
     display: flex;
     justify-content: space-between;
   }
   .cancel {
+    padding: 11px 0px;
     position: relative;
     font-size: 1em;
     color: #8f8f8f;
     text-decoration: none;
     margin-top: 20px;
+    cursor: Pointer;
     :hover {
       color: #45f3ff;
     }

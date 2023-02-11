@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 
-
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from "styled-components";
 import { useCart } from "react-use-cart";
-import { formatPrice } from '../../utils';
+import { formatPrice } from "../../utils";
 
 function MovieDetailsPage(props) {
-  const {movie,isShowModal,onClose}=props
+  const { movie, isShowModal, onClose } = props;
   const { addItem } = useCart();
 
   return (
     <MovieDetailsWrapper>
-       <div
+      <div
         className={`backdrop ${isShowModal ? "showBackdrop" : "hideBackdrop"}`}
         onClick={onClose}
       ></div>
@@ -24,34 +23,38 @@ function MovieDetailsPage(props) {
             ? {
                 backgroundImage: `url(${movie.img})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center"
+                backgroundPosition: "center",
               }
             : {}
         }
-      > 
-    
-      </div>
-      <div className="modal" >
+      ></div>
+      <div className="modal">
         <div className="container">
           <div className="infoMovie">
-            <h1 className="title">Tên Món: {movie.title}</h1>  
+            <h1 className="title">Tên Món: {movie.title}</h1>
             <p className="rating">Giá: {formatPrice(movie.price)} </p>
-            {movie.description? 
-              (
-                <div className='description' >
+            {movie.description ? (
+              <div className="description">
                 <p className="episode">Mô tả: </p>
                 <span className="overview">{movie.description}.</span>
-                </div>
-              )
-            :""
-            }
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <MdClose className="closeBtn" onClick={onClose} />
         </div>
-          <div className="addbtn" onClick={() => {addItem(movie);{onClose()}}} >
-                      <button >+</button>
-                    </div>
-
+        <div
+          className="addbtn"
+          onClick={() => {
+            addItem(movie);
+            {
+              onClose();
+            }
+          }}
+        >
+          <button>+</button>
+        </div>
       </div>
     </MovieDetailsWrapper>
   );
@@ -75,7 +78,6 @@ const MovieDetailsWrapper = styled.div`
   }
   .showBackdrop {
     display: block;
-
   }
   .hideBackdrop {
     display: none;
@@ -99,7 +101,6 @@ const MovieDetailsWrapper = styled.div`
       position: relative;
       width: 40%;
       height: 100%;
-    
 
       background: linear-gradient(90deg, rgba(0, 0, 0, 0.94) 60%, transparent);
 
@@ -139,9 +140,7 @@ const MovieDetailsWrapper = styled.div`
         color: #fff;
         font-size: 20px;
         @media only screen and (max-width: 980px) {
-       
           width: 95%;
-      
         }
         @media only screen and (max-width: 600px) {
           font-size: 16px;
@@ -151,17 +150,15 @@ const MovieDetailsWrapper = styled.div`
           margin-top: 10px;
         }
         .episode {
-
           display: inline;
         }
-        .description{
-          margin-top:30px;
+        .description {
+          margin-top: 30px;
           text-align: justify;
           @media only screen and (max-width: 980px) {
-            margin-top:10px;
-       
+            margin-top: 10px;
+
             width: 95%;
-        
           }
         }
         .overview {
@@ -174,7 +171,7 @@ const MovieDetailsWrapper = styled.div`
           }
         }
       }
-  
+
       .closeBtn {
         position: absolute;
         top: 10px;
@@ -210,6 +207,7 @@ const MovieDetailsWrapper = styled.div`
     transition: 0.3s ease-out;
   }
   .addbtn {
+    color: greenyellow;
     z-index: 100;
     cursor: pointer;
     position: absolute;
@@ -226,7 +224,6 @@ const MovieDetailsWrapper = styled.div`
       color: rgba(255, 255, 255, 0.95);
       background-color: rgba(255, 255, 255, 0.4);
       top: 2px;
-
     }
   }
 `;
