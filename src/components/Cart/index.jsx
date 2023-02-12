@@ -8,7 +8,7 @@ import Login from "../Form/Login/Login";
 import logo from "../../Logo/logo.png";
 import { Link } from "react-router-dom";
 
-function Cart() {
+function Cart({ login }) {
   const [showCart, setShowCart] = useState(false);
   const [springCart, setSpringCart] = useState(false);
   const [isShowFormLog, setIsShowFormLog] = useState(false);
@@ -46,14 +46,20 @@ function Cart() {
   };
   return (
     <Header>
-      <div
-        className="login-button"
-        onClick={() => {
-          setIsShowFormLog(true);
-        }}
-      >
-        Đăng Nhập
-      </div>
+      {login ? (
+        <div
+          className="login-button"
+          onClick={() => {
+            setIsShowFormLog(true);
+          }}
+        >
+          Đăng Nhập
+        </div>
+      ) : (
+        <Link to="/">
+          <div className="login-button">Đăng Xuất</div>
+        </Link>
+      )}
       <Login
         isShow={isShowFormLog}
         onClose={() => {

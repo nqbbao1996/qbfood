@@ -95,7 +95,7 @@ const MovieDetailsWrapper = styled.div`
     color: #fff;
     opacity: 1;
     box-shadow: 0 15px 40px rgba(var(--color-dark), 0.2);
-    transition: all 0.3s;
+    transition: all 0.5s ease-out;
 
     .container {
       position: relative;
@@ -194,13 +194,15 @@ const MovieDetailsWrapper = styled.div`
     }
   }
   .showModal {
+    transform: scale(1);
     top: 15%;
     opacity: 1;
     left: 0;
     visibility: visible;
-    transition: 0.5s ease-out;
+    transition: all 0.5s ease-out;
   }
   .hideModal {
+    transform: scale(0);
     top: 0;
     opacity: 0;
     visibility: hidden;

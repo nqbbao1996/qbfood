@@ -8,6 +8,18 @@ import { animateScroll as scroll } from "react-scroll";
 import { useScroll } from "../../hooks";
 import axios from "axios";
 import { useState } from "react";
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  Database,
+  set,
+  update,
+  push,
+  remove,
+  once,
+} from "firebase/database";
 
 const scrollToTop = () => {
   scroll.scrollToTop();
@@ -18,103 +30,117 @@ function Contents(props) {
   const [dataMain, setDataMain] = useState("");
   const [dataDrink, setDataDrink] = useState("");
 
+  const dbRef = ref(getDatabase());
   useEffect(() => {
-    const getFood = async () => {
-      try {
-        const response = await axios.get(
-          "https://fake-db-hazel.vercel.app/Fasts"
-        );
-        setDataFast(response.data);
-      } catch (error) {
+    get(child(dbRef, "hots"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setDataHot(Object.values(snapshot.val()));
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
         console.error(error);
-      }
-    };
-    getFood();
-  }, []);
-  useEffect(() => {
-    const getFood = async () => {
-      try {
-        const response = await axios.get(
-          "https://fake-db-hazel.vercel.app/Hots"
-        );
-        setDataHot(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getFood();
-  }, []);
-  useEffect(() => {
-    const getFood = async () => {
-      try {
-        const response = await axios.get(
-          "https://fake-db-hazel.vercel.app/Mains"
-        );
-        setDataMain(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getFood();
-  }, []);
-  useEffect(() => {
-    const getFood = async () => {
-      try {
-        const response = await axios.get(
-          "https://fake-db-hazel.vercel.app/Drinks"
-        );
-        setDataDrink(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getFood();
+      });
   }, []);
 
-  // const acceptAddMusic = async () => {
-  //   try {
-  //     const result = await axios({
-  //       url: `https://fake-db-hazel.vercel.app/comments`,
-  //       method: "post",
-  //       data: dataPost,
-  //     });
-  //     if (result.status === 200) {
-  //       alert("Thêm logo thành công");
+  useEffect(() => {
+    get(child(dbRef, "fasts"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setDataFast(Object.values(snapshot.val()));
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    get(child(dbRef, "mains"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setDataMain(Object.values(snapshot.val()));
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    get(child(dbRef, "drinks"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setDataDrink(Object.values(snapshot.val()));
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  //////////////////////////////////////////////call API with axios
+  // useEffect(() => {
+  //   const getFood = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://fake-db-hazel.vercel.app/Fasts"
+  //       );
+  //       setDataFast(response.data);
+  //     } catch (error) {
+  //       console.error(error);
   //     }
-  //   } catch (error) {
-  //     alert("Thêm logo thất bại");
-  //     console.log(error);
-  //   }
-  // };
-  // const acceptDelMusic = async () => {
-  //   try {
-  //     const result = await axios({
-  //       url: `https://fake-db-hazel.vercel.app/comments/t5eDzi4`,
-  //       method: "delete",
-  //     });
-  //     if (result.status === 200) {
-  //       alert("Thêm logo thành công");
+  //   };
+  //   getFood();
+  // }, []);
+  // useEffect(() => {
+  //   const getFood = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://fake-db-hazel.vercel.app/Hots"
+  //       );
+  //       setDataHot(response.data);
+  //     } catch (error) {
+  //       console.error(error);
   //     }
-  //   } catch (error) {
-  //     alert("Thêm logo thất bại");
-  //     console.log(error);
-  //   }
-  // };
-  // const acceptFixMusic = async () => {
-  //   try {
-  //     const result = await axios({
-  //       url: `http://localhost:3004/comments/MIKWScM`,
-  //       method: "patch",
-  //       data: dataPatch,
-  //     });
-  //     if (result.status === 200) {
-  //       alert("Thêm logo thành công");
+  //   };
+  //   getFood();
+  // }, []);
+  // useEffect(() => {
+  //   const getFood = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://fake-db-hazel.vercel.app/Mains"
+  //       );
+  //       setDataMain(response.data);
+  //     } catch (error) {
+  //       console.error(error);
   //     }
-  //   } catch (error) {
-  //     alert("Thêm logo thất bại");
-  //     console.log(error);
-  //   }
-  // };
+  //   };
+  //   getFood();
+  // }, []);
+  // useEffect(() => {
+  //   const getFood = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://fake-db-hazel.vercel.app/Drinks"
+  //       );
+  //       setDataDrink(response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getFood();
+  // }, []);
+
   const [scrollDimensions] = useScroll();
 
   return (

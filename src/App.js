@@ -12,7 +12,6 @@ function App() {
         <div className="App">
           <Routes>
             <Route exact path="/" element={<HomePage />} />
-
             <Route path="admin/:id?" element={<AdminPage />} />
           </Routes>
         </div>

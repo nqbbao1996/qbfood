@@ -3,8 +3,6 @@ import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { VscMute, VscUnmute } from "react-icons/vsc";
 
-const API_KEY = "";
-
 function Intro(props) {
   const [isMuted, setIsMuted] = useState(true);
   return (
@@ -16,7 +14,6 @@ function Intro(props) {
         height="100%"
         volume={1}
         muted={isMuted}
-        // url="https://vimeo.com/375868537"
         url="https://youtu.be/pq3Otf0zbdk"
         className="videoIntro"
       />
@@ -69,6 +66,9 @@ const IntroSection = styled.header`
 
   @media screen and (max-width: 600px) {
     padding-top: 60%;
+  }
+  @media screen and (max-width: 450px) {
+    padding-top: 70%;
   }
 
   .videoIntro {
@@ -141,6 +141,9 @@ const IntroSection = styled.header`
       }
       @media screen and (max-width: 600px) {
         font-size: 14px;
+      }
+      @media screen and (max-width: 450px) {
+        font-size: 10px;
       }
     }
   }

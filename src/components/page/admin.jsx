@@ -10,32 +10,14 @@ import Form from "../Form/AddFood/AddNewFood";
 import StickySuccessAlert from "../../utils/alert";
 
 function AdminPage() {
-  const params = useParams();
   const [data, setData] = useState("");
   const [refetch, setRefetch] = useState(false);
 
-  // useEffect(() => {
-  //   const getFoods = async () => {
-  //     try {
-  //       const response = await axios.get(`http://localhost:3004/${params.id}`);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getFoods();
-  // }, [params, refetch]);
-  // console.log(data);
   return (
     <>
-      <Cart />
+      <Cart login={false} />
       <Sidebar />
-      <AdminProducts
-        data={data}
-        reLoad={() => {
-          setRefetch(!refetch);
-        }}
-      />
+      <AdminProducts />
 
       <Footer />
     </>

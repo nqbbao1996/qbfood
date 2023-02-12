@@ -6,6 +6,7 @@ import StickySuccessAlert from "../../utils/alert";
 import AddFood from "../Form/AddFood/AddNewFood";
 import EditFood from "../Form/AddFood/EditFood";
 import ConfirmationModal from "../Form/Confirm";
+import { formatPrice } from "../../utils";
 import {
   getDatabase,
   ref,
@@ -20,7 +21,7 @@ import {
 } from "firebase/database";
 import { database } from "../../firebase";
 
-function AdminProducts({ data, reLoad }) {
+function AdminProducts() {
   const params = useParams();
   const [id, setID] = useState("");
   const [isAddFood, setIsAddFood] = useState(false);
@@ -33,10 +34,17 @@ function AdminProducts({ data, reLoad }) {
   const [datas, setDatas] = useState("");
   const [dataArray, setDataArray] = useState("");
 
+  {
+    if (params.lenght > 0) {
+      console.log("có");
+    } else {
+      console.log("không");
+    }
+  }
   //get firebase
   const dbRef = ref(getDatabase());
   useEffect(() => {
-    get(child(dbRef, `hots/`))
+    get(child(dbRef, `${params.id}/`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           setDatas(snapshot.val());
@@ -55,11 +63,6 @@ function AdminProducts({ data, reLoad }) {
     setDataArray(array);
   }, [datas]);
 
-  //add data
-
-  useEffect(() => {
-    reLoad();
-  }, [refetchAPI]);
   return (
     <>
       <Container>
@@ -76,7 +79,7 @@ function AdminProducts({ data, reLoad }) {
             <div key={item.id} className="item">
               <img className="item1" src={item.img} alt="" />
               <p className="my-auto item2">Tên món: {item.title} </p>
-              <p className="my-auto item3">Giá: {item.price}</p>
+              <p className="my-auto item3">Giá: {formatPrice(item.price)}</p>
               <i className="my-auto item4">{item.description}</i>
               <button
                 onClick={() => {
@@ -166,7 +169,8 @@ transition: all .3s ease-in-out;
   .item4 {
     grid-area: des;
     overflow: hidden;
-    max-height: 48px;
+    max-height: 46px;
+   
   }
 
   .item5 {
@@ -187,7 +191,7 @@ transition: all .3s ease-in-out;
     grid-template-areas:
       "img title title title price fix"
       "img des des des des del";
-    gap: 10px;
+    gap: 12px;
 
     .my-auto {
       margin: auto 0px;
@@ -196,11 +200,22 @@ transition: all .3s ease-in-out;
     &:hover {
       background: #444;
     }
+
+    @media screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+    }
   }
 
   img {
     width: 100px;
-    height: 80px;
+    height: -webkit-fill-available;
+    @media screen and (max-width: 768px) {
+      margin: auto;
+      height: unset;
+    }
   }
 
   button {

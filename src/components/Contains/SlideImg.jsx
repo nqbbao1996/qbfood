@@ -68,14 +68,7 @@ const ImageSlider = () => {
   };
 
   return (
-    <ContentsSection
-
-    // style={{
-    //   display: "flex",
-    //   alignItems: "center",
-    //   justifyContent: "center",
-    // }}
-    >
+    <ContentsSection>
       <h2 className="heading">Không Gian</h2>
 
       <InfoMoviesSlider
@@ -88,24 +81,7 @@ const ImageSlider = () => {
           .concat(images.slice(0, 6 - (images.length - index)))
           .map((image, i) => (
             <div className="movieItem" key={i}>
-              <img
-                src={image.src}
-                // style={{
-                //   width: "420px",
-                //   Height: "240px",
-                //   transition: "all 0.3s ease-out",
-                //   display: "inline-block",
-                //   transition: "transform 0.5s ease",
-                // }}
-                // onMouseEnter={(e) => {
-                //   e.target.style.transform = `scale(${1.4})`;
-                //   e.target.style.zIndex = 100;
-                // }}
-                // onMouseLeave={(e) => {
-                //   e.target.style.transform = `scale(${1})`;
-                //   e.target.style.zIndex = 1;
-                // }}
-              />
+              <img src={image.src} />
             </div>
           ))}
       </InfoMoviesSlider>
@@ -179,19 +155,22 @@ const ContentsSection = styled.section`
 const InfoMoviesSlider = styled.div`
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(999, 400px);
+  grid-template-columns: repeat(999, 600px);
   user-select: none;
   overflow-y: hidden;
   overflow-x: auto;
   overflow: hidden;
   padding: 48px 0px;
-
   scroll-behavior: smooth;
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: repeat(999, 400px);
+  }
 
   .movieItem {
     transform: scale(1);
-    width: 400px;
-    height: 240px;
+    width: 600px;
+    height: 340px;
     transition: all 0.6s ease-out;
     user-select: none;
     overflow: hidden;
@@ -199,7 +178,7 @@ const InfoMoviesSlider = styled.div`
     transform: center;
 
     &:hover {
-      transform: scale(1.2, 1.4);
+      transform: scale(1.3);
       z-index: 10;
       -webkit-filter: brightness(1) !important;
       filter: brightness(1) !important;
@@ -208,6 +187,10 @@ const InfoMoviesSlider = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    @media screen and (max-width: 1280px) {
+      width: 400px;
+      height: 240px;
     }
   }
 `;

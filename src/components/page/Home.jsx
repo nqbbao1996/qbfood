@@ -8,7 +8,7 @@ import Menus from "../Menus/Index.jsx";
 function HomePage() {
   return (
     <>
-      <Cart />
+      <Cart login={true} />
       <Intro />
       <ImageSlider />
       <Contents />

@@ -22,10 +22,10 @@ function FormLog({ isShow, onClose }) {
     } else if (password.length < 4) {
       setErrorMessage("Mật khẩu có ít nhất 4 kí tự");
     } else if (username === "1111" && password === "1111") {
-      navigate("/admin");
+      navigate("/admin/hots");
       onClose();
     } else {
-      alert("Thất bại");
+      alert("Tài khoản/Mật khẩu: 1111");
     }
   };
 
@@ -56,7 +56,7 @@ function FormLog({ isShow, onClose }) {
       <Formbox style={{ display: isShow ? "contents" : "none" }}>
         <div className="box">
           <form onSubmit={handleSubmit} className="form">
-            <h2>Sign In</h2>
+            <h2>Đăng Nhập</h2>
             <div className="inputBox">
               <input
                 required
@@ -69,7 +69,7 @@ function FormLog({ isShow, onClose }) {
                 }}
                 onBlur={handleUsernameBlur}
               />
-              <span>Username</span> <i></i>
+              <span>Tên Đăng Nhập</span> <i></i>
             </div>
             <div className="inputBox">
               <input
@@ -83,12 +83,12 @@ function FormLog({ isShow, onClose }) {
                 }}
                 onBlur={handlePasswordBlur}
               />
-              <span>Password</span> <i></i>
+              <span>Mật Khẩu</span> <i></i>
             </div>
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             <div className="links">
-              <a href="#">Forgot Password?</a>
-              <a href="#">Sign Up</a>
+              <a href="#">Quên mật khẩu?</a>
+              <a href="#">Đăng ký</a>
             </div>
             <div className="sub-button">
               <p
@@ -98,9 +98,9 @@ function FormLog({ isShow, onClose }) {
                 }}
                 className="cancel"
               >
-                Cancel
+                Hủy bỏ
               </p>
-              <input type="submit" value="Login" className="c" />
+              <input type="submit" value="Đăng Nhập" className="c" />
             </div>
           </form>
         </div>
@@ -256,7 +256,7 @@ const Formbox = styled.div`
   input[type="submit"] {
     border: none;
     outline: none;
-    padding: 11px 25px;
+    padding: 10px;
     width: 100px;
     margin-top: 20px;
     border-radius: 4px;

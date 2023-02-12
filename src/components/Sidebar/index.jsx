@@ -1,7 +1,7 @@
-import { logDOM } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { AiOutlineMenuUnfold } from "react-icons/ai";
 
 const Container = styled.div`
   .sidebar {
@@ -31,17 +31,24 @@ const Container = styled.div`
   }
 
   .hamburger-menu-icon {
-    margin: 8vh 0;
-    padding-top: 20px px;
+    color: var(--color-white);
+    font-size: 30px;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    background: linear-gradient(
+      180deg,
+      rgba(67, 67, 67) 20%,
+      rgba(17, 17, 17) 100%
+    );
+    left: 0px;
     cursor: pointer;
     display: none;
     &:hover + .sidebar {
       transform: translateX(0);
       height: 340px;
     }
+  }
+  .disable {
+    cursor: no-drop;
   }
 
   @media (max-width: 768px) {
@@ -111,11 +118,11 @@ function Sidebar() {
   return (
     <Container>
       <div className="hamburger-menu-icon" onClick={handleClick}>
-        <i className="fas fa-bars"> alo</i>
+        <AiOutlineMenuUnfold />
       </div>
       <div className={`sidebar ${showSidebar ? "show" : "hide"}`}>
         <Link to="/admin">
-          <Field>Đơn Đặt Bàn</Field>
+          <Field className="disable">Đơn Đặt Bàn</Field>
         </Link>
         <Field onClick={() => setOpen(!open)}>Quản Lý Thực Đơn</Field>
         <ChildFields className={open ? "open" : ""}>

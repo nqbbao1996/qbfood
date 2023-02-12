@@ -5,7 +5,7 @@ function Footer(props) {
   return (
     <FooterContainer>
       <h4>Copyright &copy; Quoc Bao</h4>
-      <p>blabla@gmail.com</p>
+      <p>quocbao0809.fed@gmail.com</p>
     </FooterContainer>
   );
 }

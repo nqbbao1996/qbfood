@@ -40,6 +40,9 @@ const FormContainer = styled.div`
   transform: translateX(-50%);
   border-radius: 10px;
   z-index: 20;
+  @media screen and (max-width: 768px) {
+    width: 80vw;
+  }
 `;
 const Formbox = styled.form`
   background-color: var(--color-background);
@@ -159,54 +162,49 @@ function AddFood({ isShow, onClose, refetch }) {
     return newErrors;
   };
 
-  const acceptAddMusic = async () => {
-    setIsSubmitting(true);
-    try {
-      const result = await axios({
-        url: `http://localhost:3004/${param.id}`,
-        method: "post",
-        data: formData,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(result);
-      if (result.status === 200 || result.status === 201) {
-        refetch();
-        onClose();
-      }
-    } catch (error) {
-      alert("Thêm món thất bại");
+  /////////////////////////////////////////////// use axios
 
-      console.log(error);
-    }
-    setIsSubmitting(false);
-  };
+  // const acceptAddMusic = async () => {
+  //   setIsSubmitting(true);
+  //   try {
+  //     const result = await axios({
+  //       url: `http://localhost:3004/${param.id}`,
+  //       method: "post",
+  //       data: formData,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     console.log(result);
+  //     if (result.status === 200 || result.status === 201) {
+  //       refetch();
+  //       onClose();
+  //     }
+  //   } catch (error) {
+  //     alert("Thêm món thất bại");
+
+  //     console.log(error);
+  //   }
+  //   setIsSubmitting(false);
+  // };
 
   // A post entry.
-  // const postData = {
-  //   title: "thêm mới 02",
-  //   img: "https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/330307107_732925105045054_7549728111414686807_n.jpg?stp=cp6_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=0debeb&_nc_ohc=WGw3v3j-m5EAX_CI1RF&_nc_ht=scontent.fsgn5-9.fna&oh=00_AfAqAmlhS6_XVSOJJUsRBNvnPc4NBDx76Fu-vgKDB-pL3g&oe=63EC0DC9",
-  //   price: 300000,
-  //   description: "body",
-  // };
 
   function writeNewPost(postData) {
     const db = getDatabase();
 
     // Get a key for a new Post.
-    const newPostKey = push(child(ref(db), "hots")).key;
+    const newPostKey = push(child(ref(db), `${param.id}`)).key;
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
     const updates = {};
-    updates["/hots/" + newPostKey] = { ...postData, id: newPostKey };
+    updates[`${param.id}/${newPostKey}`] = { ...postData, id: newPostKey };
 
     return update(ref(db), updates);
   }
 
   const handleSubmited = () => {
     setIsSubmitting(true);
-
     writeNewPost(formData)
       .then(() => {
         console.log("Post added successfully");
@@ -230,8 +228,6 @@ function AddFood({ isShow, onClose, refetch }) {
     }
   };
 
-  const formChecker = Object.values(errors).some(Boolean);
-
   return (
     <>
       <Formbackground
@@ -241,7 +237,7 @@ function AddFood({ isShow, onClose, refetch }) {
       <FormContainer>
         <Formbox onSubmit={handleSubmit}>
           <FormItem>
-            <Label htmlFor="title">Tên món:</Label>
+            <Label htmlFor="title">Tên món</Label>
             <div className="FormItem_input">
               <Input
                 type="text"
@@ -254,7 +250,9 @@ function AddFood({ isShow, onClose, refetch }) {
             </div>
           </FormItem>
           <FormItem>
-            <Label htmlFor="img">hình ảnh</Label>
+            <Label htmlFor="img">
+              hình ảnh <sup>(url)</sup>
+            </Label>
             <div className="FormItem_input">
               <Input
                 type="url"

@@ -3,6 +3,18 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import styled, { keyframes } from "styled-components";
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  Database,
+  set,
+  update,
+  push,
+  remove,
+  once,
+} from "firebase/database";
 
 const fadeIn = keyframes`
   0% { background: rgba(0, 0, 0, 0);}
@@ -28,6 +40,9 @@ const FormContainer = styled.div`
   transform: translateX(-50%);
   border-radius: 10px;
   z-index: 20;
+  @media screen and (max-width: 768px) {
+    width: 80vw;
+  }
 `;
 const Formbox = styled.form`
   background-color: var(--color-dark);
@@ -146,26 +161,30 @@ function EditFood({ data, isShow, onClose, refetch }) {
     return newErrors;
   };
 
-  const acceptAddMusic = async () => {
+  //edit data
+
+  function writeNewPost(formData) {
+    const db = getDatabase();
+
+    const updates = {};
+    updates[`/${param.id}/${data.id}`] = { ...formData, id: data.id };
+
+    return update(ref(db), updates);
+  }
+
+  const handleSubmited = () => {
     setIsSubmitting(true);
-    try {
-      const result = await axios({
-        url: `http://localhost:3004/${param.id}/${data.id}`,
-        method: "patch",
-        data: formData,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(result);
-      if (result.status === 200 || result.status === 201) {
+    writeNewPost(formData)
+      .then(() => {
+        console.log("Post added successfully");
         refetch();
         onClose();
-      }
-    } catch (error) {
-      alert("Đã điều chỉnh");
-      console.log(error);
-    }
+      })
+      .catch((error) => {
+        console.error("Error adding post: ", error);
+        alert("Thêm món thất bại");
+      });
+
     setIsSubmitting(false);
   };
 
@@ -174,11 +193,32 @@ function EditFood({ data, isShow, onClose, refetch }) {
     const errors = validateForm();
     setErrors(errors);
     if (Object.keys(errors).length === 0) {
-      acceptAddMusic();
+      handleSubmited();
     }
   };
 
-  const formChecker = Object.values(errors).some(Boolean);
+  // const acceptAddMusic = async () => {
+  //   setIsSubmitting(true);
+  //   try {
+  //     const result = await axios({
+  //       url: `http://localhost:3004/${param.id}/${data.id}`,
+  //       method: "patch",
+  //       data: formData,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     console.log(result);
+  //     if (result.status === 200 || result.status === 201) {
+  //       refetch();
+  //       onClose();
+  //     }
+  //   } catch (error) {
+  //     alert("Đã điều chỉnh");
+  //     console.log(error);
+  //   }
+  //   setIsSubmitting(false);
+  // };
 
   return (
     <>
@@ -202,7 +242,9 @@ function EditFood({ data, isShow, onClose, refetch }) {
             </div>
           </FormItem>
           <FormItem>
-            <Label htmlFor="img">hình ảnh</Label>
+            <Label htmlFor="img">
+              hình ảnh <sup>(url)</sup>
+            </Label>
             <div className="FormItem_input">
               <Input
                 type="url"

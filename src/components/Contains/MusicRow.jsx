@@ -86,7 +86,9 @@ function MusicsRow(props) {
                       ? "300px"
                       : windowDimensions.width > 768
                       ? "250px"
-                      : "200px"
+                      : windowDimensions.width > 600
+                      ? "200px"
+                      : "180px"
                   })`,
                 }
               : {}
@@ -167,6 +169,7 @@ const MoviesRowSection = styled.section`
   .btnLeft {
     position: absolute;
     top: 50%;
+    transform: translateY(-20%);
     left: 30px;
     z-index: 20;
     transform-origin: center;
@@ -174,7 +177,6 @@ const MoviesRowSection = styled.section`
     background-color: rgba(0, 0, 0, 0.5);
     height: 50px;
     width: 40px;
-    transform: translateY(-20%);
     display: flex;
     align-items: center;
     border-radius: 4px;
@@ -193,6 +195,10 @@ const MoviesRowSection = styled.section`
     &.isNetflix {
       height: 100px;
       width: max-content;
+    }
+    @media screen and (max-width: 600px) {
+      height: 40px;
+      width: 30px;
     }
   }
   .btnRight {
@@ -224,6 +230,10 @@ const MoviesRowSection = styled.section`
     &.isNetflix {
       height: 100px;
       width: max-content;
+    }
+    @media screen and (max-width: 600px) {
+      height: 40px;
+      width: 30px;
     }
   }
 `;
