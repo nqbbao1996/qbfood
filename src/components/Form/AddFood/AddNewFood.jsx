@@ -3,6 +3,18 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "react-scroll";
 import styled, { keyframes } from "styled-components";
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  Database,
+  set,
+  update,
+  push,
+  remove,
+  once,
+} from "firebase/database";
 
 const fadeIn = keyframes`
   0% { background: rgba(0, 0, 0, 0);}
@@ -171,12 +183,50 @@ function AddFood({ isShow, onClose, refetch }) {
     setIsSubmitting(false);
   };
 
+  // A post entry.
+  // const postData = {
+  //   title: "thêm mới 02",
+  //   img: "https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/330307107_732925105045054_7549728111414686807_n.jpg?stp=cp6_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=0debeb&_nc_ohc=WGw3v3j-m5EAX_CI1RF&_nc_ht=scontent.fsgn5-9.fna&oh=00_AfAqAmlhS6_XVSOJJUsRBNvnPc4NBDx76Fu-vgKDB-pL3g&oe=63EC0DC9",
+  //   price: 300000,
+  //   description: "body",
+  // };
+
+  function writeNewPost(postData) {
+    const db = getDatabase();
+
+    // Get a key for a new Post.
+    const newPostKey = push(child(ref(db), "hots")).key;
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates = {};
+    updates["/hots/" + newPostKey] = { ...postData, id: newPostKey };
+
+    return update(ref(db), updates);
+  }
+
+  const handleSubmited = () => {
+    setIsSubmitting(true);
+
+    writeNewPost(formData)
+      .then(() => {
+        console.log("Post added successfully");
+        refetch();
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Error adding post: ", error);
+        alert("Thêm món thất bại");
+      });
+
+    setIsSubmitting(false);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validateForm();
     setErrors(errors);
     if (Object.keys(errors).length === 0) {
-      acceptAddMusic();
+      handleSubmited();
     }
   };
 

@@ -6,6 +6,19 @@ import StickySuccessAlert from "../../utils/alert";
 import AddFood from "../Form/AddFood/AddNewFood";
 import EditFood from "../Form/AddFood/EditFood";
 import ConfirmationModal from "../Form/Confirm";
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  Database,
+  set,
+  update,
+  push,
+  remove,
+  once,
+} from "firebase/database";
+import { database } from "../../firebase";
 
 function AdminProducts({ data, reLoad }) {
   const params = useParams();
@@ -17,9 +30,32 @@ function AdminProducts({ data, reLoad }) {
   const [dataEdit, setDataEdit] = useState("");
   const [apiStatus, setApiStatus] = useState(false);
 
-  const handleApiStatus = (status) => {
-    setApiStatus(status);
-  };
+  const [datas, setDatas] = useState("");
+  const [dataArray, setDataArray] = useState("");
+
+  //get firebase
+  const dbRef = ref(getDatabase());
+  useEffect(() => {
+    get(child(dbRef, `hots/`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setDatas(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [params, refetchAPI]);
+
+  //covert to array
+  useEffect(() => {
+    const array = Object.values(datas);
+    setDataArray(array);
+  }, [datas]);
+
+  //add data
 
   useEffect(() => {
     reLoad();
@@ -35,8 +71,8 @@ function AdminProducts({ data, reLoad }) {
         >
           Thêm mới
         </button>
-        {data &&
-          data.map((item) => (
+        {dataArray &&
+          dataArray.map((item) => (
             <div key={item.id} className="item">
               <img className="item1" src={item.img} alt="" />
               <p className="my-auto item2">Tên món: {item.title} </p>
@@ -85,7 +121,6 @@ function AdminProducts({ data, reLoad }) {
           isShow={isConfirm}
           onClose={() => setIsConfirm(false)}
           refetch={() => setRefetchAPI(!refetchAPI)}
-          handleApiStatus={handleApiStatus}
         />
       )}
       <StickySuccessAlert apiStatus={refetchAPI} />

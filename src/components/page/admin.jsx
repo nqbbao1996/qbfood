@@ -14,18 +14,18 @@ function AdminPage() {
   const [data, setData] = useState("");
   const [refetch, setRefetch] = useState(false);
 
-  useEffect(() => {
-    const getFoods = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3004/${params.id}`);
-        setData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getFoods();
-  }, [params, refetch]);
-  console.log(data);
+  // useEffect(() => {
+  //   const getFoods = async () => {
+  //     try {
+  //       const response = await axios.get(`http://localhost:3004/${params.id}`);
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getFoods();
+  // }, [params, refetch]);
+  // console.log(data);
   return (
     <>
       <Cart />

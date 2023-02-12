@@ -3,6 +3,18 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import StickySuccessAlert from "../../../utils/alert";
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  Database,
+  set,
+  update,
+  push,
+  remove,
+  once,
+} from "firebase/database";
 
 const fadeIn = keyframes`
   0% { background: rgba(0, 0, 0, 0);}
@@ -60,34 +72,45 @@ const Button = styled.button`
   }
 `;
 
-const ConfirmationModal = ({
-  id,
-  isShow,
-  onClose,
-  refetch,
-  handleApiStatus,
-}) => {
+const ConfirmationModal = ({ id, isShow, onClose, refetch }) => {
   const param = useParams();
 
-  const handleConfirm = async () => {
-    try {
-      const result = await axios({
-        url: `http://localhost:3004/${param.id}/${id}`,
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (result.status === 200) {
+  // const handleConfirm = async () => {
+  //   try {
+  //     const result = await axios({
+  //       url: `http://localhost:3004/${param.id}/${id}`,
+  //       method: "delete",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     if (result.status === 200) {
+  //       onClose();
+  //       refetch();
+  //       handleApiStatus(true);
+  //     }
+  //   } catch (error) {
+  //     alert("Thất bại, vui lòng kiểm tra lại");
+  //     console.log(error);
+  //   }
+  // };
+
+  // delete
+  function deletePostById() {
+    const db = getDatabase();
+    remove(ref(db, `${param.id}/${id}`))
+      .then(() => {
+        console.log("Node successfully removed!");
         onClose();
         refetch();
-        handleApiStatus(true);
-      }
-    } catch (error) {
-      alert("Thất bại, vui lòng kiểm tra lại");
-      console.log(error);
-    }
-  };
+      })
+      .catch((error) => {
+        console.error("Error removing node:", error);
+        alert("Thất bại, vui lòng kiểm tra lại");
+      });
+  }
+
+  const datadele = "-NO-lqoUseH0NTWx4AOR";
 
   return (
     <>
@@ -101,7 +124,7 @@ const ConfirmationModal = ({
             <p>Are you sure you want to continue?</p>
             <ModalActions>
               <Button onClick={() => onClose()}>Cancel</Button>
-              <Button onClick={handleConfirm}>Confirm</Button>
+              <Button onClick={deletePostById}>Confirm</Button>
             </ModalActions>
           </ModalContent>
         </ModalContainer>
