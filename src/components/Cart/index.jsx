@@ -7,6 +7,18 @@ import { formatPrice } from "../../utils";
 import Login from "../Form/Login/Login";
 import logo from "../../Logo/logo.png";
 import { Link } from "react-router-dom";
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  Database,
+  set,
+  update,
+  push,
+  remove,
+  once,
+} from "firebase/database";
 
 function Cart({ login }) {
   const [showCart, setShowCart] = useState(false);
@@ -32,6 +44,7 @@ function Cart({ login }) {
     removeItem,
     cartTotal,
     totalItems,
+    emptyCart,
   } = useCart();
 
   useEffect(() => {
@@ -41,8 +54,38 @@ function Cart({ login }) {
     }, 200);
   }, [totalItems]);
 
-  const handelSumit = () => {
-    console.log(items);
+  function writeNewPost(items) {
+    const db = getDatabase();
+
+    // Get a key for a new Post.
+    const newPostKey = push(child(ref(db), "carts")).key;
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates = {};
+    updates[`carts/${newPostKey}`] = { ...items, id: newPostKey };
+
+    return update(ref(db), updates);
+  }
+
+  const handleSubmited = () => {
+    writeNewPost(items)
+      .then(() => {
+        console.log("Post added successfully");
+        alert("Thành Công");
+        emptyCart();
+      })
+      .catch((error) => {
+        console.error("Error adding post: ", error);
+        alert("đặt món thất bại");
+      });
+  };
+
+  const handelSumit = (event) => {
+    event.preventDefault();
+    if (items.length > 0) {
+      handleSubmited();
+      console.log(items);
+    }
   };
   return (
     <Header>

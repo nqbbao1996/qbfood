@@ -21,11 +21,9 @@ function FormLog({ isShow, onClose }) {
       setErrorMessage("Bạn chưa nhập mật khẩu");
     } else if (password.length < 4) {
       setErrorMessage("Mật khẩu có ít nhất 4 kí tự");
-    } else if (username === "1111" && password === "1111") {
+    } else {
       navigate("/admin/hots");
       onClose();
-    } else {
-      alert("Tài khoản/Mật khẩu: 1111");
     }
   };
 

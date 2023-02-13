@@ -12,7 +12,8 @@ function App() {
         <div className="App">
           <Routes>
             <Route exact path="/" element={<HomePage />} />
-            <Route path="admin/:id?" element={<AdminPage />} />
+            <Route path="admin/" element={<AdminPage cart={true} />} />
+            <Route path="admin/:id?" element={<AdminPage cart={false} />} />
           </Routes>
         </div>
       </CartProvider>

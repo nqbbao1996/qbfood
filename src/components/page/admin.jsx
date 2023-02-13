@@ -8,8 +8,9 @@ import axios from "axios";
 import ConfirmModal from "../Form/AddFood/AddNewFood";
 import Form from "../Form/AddFood/AddNewFood";
 import StickySuccessAlert from "../../utils/alert";
+import AdminCart from "../Admin/ManageCart";
 
-function AdminPage() {
+function AdminPage({ cart }) {
   const [data, setData] = useState("");
   const [refetch, setRefetch] = useState(false);
 
@@ -17,7 +18,7 @@ function AdminPage() {
     <>
       <Cart login={false} />
       <Sidebar />
-      <AdminProducts />
+      {cart ? <AdminCart /> : <AdminProducts />}
 
       <Footer />
     </>
