@@ -48,9 +48,6 @@ const Container = styled.div`
       height: 340px;
     }
   }
-  .disable {
-    cursor: no-drop;
-  }
 
   @media (max-width: 768px) {
     .hamburger-menu-icon {
