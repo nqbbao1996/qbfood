@@ -7,18 +7,7 @@ import AddFood from "../Form/AddFood/AddNewFood";
 import EditFood from "../Form/AddFood/EditFood";
 import ConfirmationModal from "../Form/Confirm";
 import { formatPrice } from "../../utils";
-import {
-  getDatabase,
-  ref,
-  child,
-  get,
-  Database,
-  set,
-  update,
-  push,
-  remove,
-  once,
-} from "firebase/database";
+import { getDatabase, ref, child, get } from "firebase/database";
 import { database } from "../../firebase";
 
 function AdminProducts() {

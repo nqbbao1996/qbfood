@@ -62,7 +62,12 @@ function Cart({ login }) {
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
     const updates = {};
-    updates[`carts/${newPostKey}`] = { ...items, id: newPostKey };
+    updates[`carts/${newPostKey}`] = {
+      ...items,
+      id: newPostKey,
+      Total: cartTotal,
+      Status: "pending",
+    };
 
     return update(ref(db), updates);
   }

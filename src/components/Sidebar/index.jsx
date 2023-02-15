@@ -8,6 +8,7 @@ const Container = styled.div`
     position: fixed;
     height: 84vh;
     left: 0;
+    z-index: 300;
 
     padding-top: 20px px;
     width: 250px;
