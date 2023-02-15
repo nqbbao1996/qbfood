@@ -23,13 +23,7 @@ function AdminProducts() {
   const [datas, setDatas] = useState("");
   const [dataArray, setDataArray] = useState("");
 
-  {
-    if (params.lenght > 0) {
-      console.log("có");
-    } else {
-      console.log("không");
-    }
-  }
+ 
   //get firebase
   const dbRef = ref(getDatabase());
   useEffect(() => {

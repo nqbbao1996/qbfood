@@ -89,7 +89,6 @@ function Cart({ login }) {
     event.preventDefault();
     if (items.length > 0) {
       handleSubmited();
-      console.log(items);
     } else {
       alert("bạn chưa chọn món");
     }

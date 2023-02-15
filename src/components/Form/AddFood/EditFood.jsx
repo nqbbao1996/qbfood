@@ -125,7 +125,6 @@ const CancelButton = styled.button`
 `;
 
 function EditFood({ data, isShow, onClose, refetch }) {
-  console.log(data);
   const param = useParams();
   const [formData, setFormData] = useState({
     title: data.title,

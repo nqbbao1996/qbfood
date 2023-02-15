@@ -61,9 +61,6 @@ function MusicsRow(props) {
   const handleSelectMovie = (movie) => {
     setMovie(movie);
     setIsShowDetail(true);
-
-    console.log(movie);
-    console.log(isShowDetail);
   };
 
   return (

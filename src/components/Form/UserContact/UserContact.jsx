@@ -16,7 +16,6 @@ const ContactForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
   };
 
   const FormContainer = styled.form`
