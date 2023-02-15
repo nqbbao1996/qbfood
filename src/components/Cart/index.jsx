@@ -90,6 +90,8 @@ function Cart({ login }) {
     if (items.length > 0) {
       handleSubmited();
       console.log(items);
+    } else {
+      alert("bạn chưa chọn món");
     }
   };
   return (

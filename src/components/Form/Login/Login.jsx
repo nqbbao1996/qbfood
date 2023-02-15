@@ -22,7 +22,7 @@ function FormLog({ isShow, onClose }) {
     } else if (password.length < 4) {
       setErrorMessage("Mật khẩu có ít nhất 4 kí tự");
     } else {
-      navigate("/admin/hots");
+      navigate("/admin");
       onClose();
     }
   };
