@@ -69,6 +69,9 @@ const Field = styled.div`
       transparent
     );
   }
+  &.active {
+    background: #888;
+    color: floralwhite;
 `;
 
 const ChildFields = styled.div`
@@ -104,11 +107,11 @@ const ChildFields = styled.div`
 function Sidebar() {
   const [open, setOpen] = React.useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [size, setSize] = useState(false);
+  const [selectedChild, setSelectedChild] = useState(null);
+
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
-  const [selectedChild, setSelectedChild] = useState(null);
   const handleChildClick = (child) => {
     setSelectedChild(child);
   };
@@ -120,7 +123,12 @@ function Sidebar() {
       </div>
       <div className={`sidebar ${showSidebar ? "show" : "hide"}`}>
         <Link to="/admin">
-          <Field className="disable">Đơn Đặt Bàn</Field>
+          <Field
+            onClick={() => handleChildClick("Field 1")}
+            className={selectedChild === "Field 1" ? "active" : ""}
+          >
+            Đơn Đặt Bàn
+          </Field>
         </Link>
         <Field onClick={() => setOpen(!open)}>Quản Lý Thực Đơn</Field>
         <ChildFields className={open ? "open" : ""}>
