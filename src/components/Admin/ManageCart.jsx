@@ -212,7 +212,7 @@ const Label = styled.label`
     margin-right: 4px;
   }
   @media screen and (max-width: 450px) {
-    font-size: 12px;
+    display: none;
   }
 `;
 
